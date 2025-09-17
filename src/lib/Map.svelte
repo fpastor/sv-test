@@ -2,12 +2,12 @@
   import "maplibre-gl/dist/maplibre-gl.css";
   import { onMount } from "svelte";
   import maplibregl from "maplibre-gl";
-  import type { markerItem } from "../types/markerItem";
+  import type { MarkerItem } from "../types/MarkerItem";
 
   let { markerList, onAddMarker, onDeleteMarker } = $props<{
-    markerList: markerItem[];
+    markerList: MarkerItem[];
     onAddMarker: (lat: number, lng: number) => void;
-    onDeleteMarker: (marker: markerItem) => void;
+    onDeleteMarker: (marker: MarkerItem) => void;
   }>();
 
   let mapContainer: HTMLDivElement;
@@ -20,7 +20,7 @@
   };
 
   const addMarkers = () => {
-    markerList.forEach((markerItem: markerItem) => {
+    markerList.forEach((markerItem: MarkerItem) => {
       const marker = new maplibregl.Marker()
         .setLngLat([markerItem.lng, markerItem.lat])
         .setPopup(new maplibregl.Popup().setText(markerItem.name))
@@ -52,10 +52,6 @@
     };
   });
 
-  // $effect(() => {
-  //   $inspect(markerList);
-  // });
-
   $effect(() => {
     if (map && markerList) {
       clearMarkers();
@@ -70,6 +66,5 @@
   #map {
     width: 100%;
     height: 100%;
-    border-radius: 1em;
   }
 </style>

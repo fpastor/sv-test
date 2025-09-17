@@ -1,8 +1,8 @@
 
-type markerItem = {
+type MarkerItem = {
   name: string;
   lat: number;
   lng: number;
 };
 
-export type { markerItem };
+export type { MarkerItem };
