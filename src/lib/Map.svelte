@@ -4,8 +4,9 @@
   import maplibregl from "maplibre-gl";
   import type { markerItem } from "../types/markerItem";
 
-  let { markerList, onDeleteMarker } = $props<{
+  let { markerList, onAddMarker, onDeleteMarker } = $props<{
     markerList: markerItem[];
+    onAddMarker: (lat: number, lng: number) => void;
     onDeleteMarker: (marker: markerItem) => void;
   }>();
 
@@ -36,6 +37,11 @@
       zoom: 5,
     });
 
+    map.on("click", (e) => {
+      const { lat, lng } = e.lngLat;
+      onAddMarker(lat, lng);
+    });
+
     map.on("load", () => {
       addMarkers();
     });
@@ -46,9 +52,9 @@
     };
   });
 
-  $effect(() => {
-    $inspect(markerList);
-  });
+  // $effect(() => {
+  //   $inspect(markerList);
+  // });
 
   $effect(() => {
     if (map && markerList) {

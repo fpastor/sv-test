@@ -1,20 +1,44 @@
 <script lang="ts">
-  import Map from './lib/Map.svelte';
-  import Menu from './lib/Menu.svelte';
-  import type { markerItem } from './types/markerItem';
+  import Map from "./lib/Map.svelte";
+  import Menu from "./lib/Menu.svelte";
+  import type { markerItem } from "./types/markerItem";
 
   let markerList: markerItem[] = $state([
-    { name: "Alicante", lat: 38.3452, lng: -0.481005},
-    { name: "Madrid", lat: 40.4168, lng: -3.7038},
-    { name: "Barcelona", lat: 41.3851, lng: 2.1734},
-    { name: "Valencia", lat: 39.4699, lng: -0.3763},
-    { name: "Sevilla", lat: 37.3891, lng: -5.9845}
+    { name: "Alicante", lat: 38.3452, lng: -0.481005 }
   ]);
 
-  function handleDeleteMarker(markerItem: markerItem) {
-    markerList = markerList.filter((item) => item !== markerItem);
-  }
+  const checkNewName = (newName: string) => {
+    return !markerList.some((marker) => marker.name === newName);
+  };
 
+  const handleAddMarker = (lat: number, lng: number) => {
+    let newName: string | null = "";
+    do {
+      newName = prompt(
+        "Enter a unique name for the new marker:",
+        `Marker ${markerList.length + 1}`
+      );
+
+      if (newName === null) {
+        return;
+      }
+
+      if (!checkNewName(newName)) {
+        alert("The name already exists. Please choose a different name.");
+      }
+    } while (!checkNewName(newName));
+
+    const newmarker: markerItem = {
+      name: newName,
+      lat,
+      lng,
+    };
+    markerList = [...markerList, newmarker];
+  };
+
+  const handleDeleteMarker = (markerItem: markerItem) => {
+    markerList = markerList.filter((item) => item !== markerItem);
+  };
 </script>
 
 <sidebar>
@@ -22,6 +46,9 @@
 </sidebar>
 
 <main>
-  <Map {markerList} onDeleteMarker={handleDeleteMarker} />
+  <Map
+    {markerList}
+    onAddMarker={handleAddMarker}
+    onDeleteMarker={handleDeleteMarker}
+  />
 </main>
-
