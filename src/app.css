@@ -49,8 +49,7 @@ menu ul {
 
 menu ul li {
   margin: 0;
-  padding: 0.5em 1em;
-  cursor: pointer;
+  padding: 0.5em 0.5em 0.5em 1em;
   border-bottom: 1px solid #e5e5e5;
   display: flex;
   justify-content: space-between;
@@ -75,13 +74,13 @@ menu ul li button {
   border: none;
   cursor: pointer;
   font-size: 1em;
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0);
 }
+
+menu ul li:hover button {
+  color: rgba(0,0,0,0.2);
+}
+
 menu ul li button:hover {
   color: rgba(0,0,0,0.8);
 }
-
-/* .lucide {
-  width: 16px;
-  height: 16px;
-} */
