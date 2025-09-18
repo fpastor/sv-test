@@ -1,47 +1,145 @@
-# Svelte + TS + Vite
+# 🗺️ Gestor de Marcadores Interactivo
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+Una aplicación web moderna desarrollada con **Svelte 5** y **TypeScript** que permite gestionar marcadores geográficos de forma interactiva con mapas en tiempo real.
 
-## Recommended IDE Setup
+## ✨ Características
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+### 🎯 Funcionalidades Principales
+- **Visualización de mapas interactivos** con MapLibre GL
+- **Gestión completa de marcadores**: crear, visualizar y eliminar
+- **Interfaz intuitiva** con sidebar colapsable
+- **Miniaturas de mapas** para cada marcador usando OpenStreetMap
+- **Validación de nombres únicos** para evitar duplicados
+- **Animaciones suaves** con transiciones CSS avanzadas
 
-## Need an official Svelte framework?
+### 🛠️ Tecnologías
+- **Frontend**: Svelte 5 con las nuevas APIs de estado (`$state`, `$props`, `$effect`)
+- **Lenguaje**: TypeScript para tipado seguro
+- **Mapas**: MapLibre GL (alternativa open-source a Mapbox)
+- **Iconografía**: Lucide Icons para una UI moderna
+- **Estilos**: CSS nativo con Stylelint para calidad de código
+- **Tipografía**: Google Fonts (Inter) integrada con Fontsource
+- **Build**: Vite para desarrollo rápido y builds optimizados
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+### 🎨 Arquitectura de Componentes
 ```
+src/
+├── App.svelte          # Componente principal con gestión de estado
+├── lib/
+│   ├── Map.svelte      # Mapa interactivo con MapLibre GL
+│   ├── Menu.svelte     # Lista de marcadores
+│   ├── MarkerCard.svelte # Tarjeta individual de marcador con miniatura
+│   └── AlertBanner.svelte # Componente de estado vacío
+└── types/
+    └── MarkerItem.ts   # Tipado TypeScript para marcadores
+```
+
+## 🚀 Instalación y Uso
+
+### Requisitos Previos
+- Node.js 18+ 
+- npm o yarn
+
+### Instalación
+```bash
+# Clonar el repositorio
+git clone <url-del-repositorio>
+cd sv-test
+
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
+npm run dev
+```
+
+### Scripts Disponibles
+```bash
+npm run dev          # Servidor de desarrollo (puerto 8080)
+npm run build        # Build de producción
+npm run preview      # Vista previa del build
+npm run check        # Verificación de tipos TypeScript
+npm run lint:css     # Linting de CSS y estilos
+npm run lint:css:fix # Auto-fix de problemas de CSS
+```
+
+## 🎮 Cómo Usar
+
+### Gestión de Marcadores
+1. **Visualizar marcadores**: La aplicación incluye marcadores predefinidos de ciudades españolas
+2. **Agregar marcadores**: Haz clic en cualquier punto del mapa
+3. **Nombrar marcadores**: Se te pedirá un nombre único para cada nuevo marcador
+4. **Eliminar marcadores**: Usa el botón de papelera en cada tarjeta del sidebar
+
+### Interfaz
+- **Toggle del sidebar**: Botón circular en la esquina superior izquierda
+- **Navegación del mapa**: Zoom, pan y exploración completa
+- **Popups informativos**: Haz clic en cualquier marcador para ver su información
+
+## 🏗️ Arquitectura Técnica
+
+### Gestión de Estado
+- **Estado reactivo** con `$state()` de Svelte 5
+- **Props tipadas** con `$props<T>()`
+- **Efectos reactivos** con `$effect()` para sincronización mapa-lista
+
+### Comunicación Entre Componentes
+```typescript
+// Flujo de datos unidireccional
+App.svelte (estado) → Map.svelte (visualización)
+                   → Menu.svelte → MarkerCard.svelte
+
+// Comunicación hacia arriba mediante callbacks
+MarkerCard → Menu → App (para eliminación)
+Map → App (para creación)
+```
+
+### Optimizaciones
+- **Transiciones suaves** con `cubic-bezier` personalizado
+- **Lazy loading** de imágenes de mapas
+- **Gestión eficiente de marcadores** con cleanup automático
+- **CSS ordenado** automáticamente por grupos lógicos
+
+## 📁 Estructura del Proyecto
+
+```
+sv-test/
+├── public/             # Archivos estáticos
+├── src/
+│   ├── lib/           # Componentes reutilizables
+│   ├── types/         # Definiciones TypeScript
+│   ├── app.css        # Estilos globales
+│   ├── main.ts        # Punto de entrada
+│   └── App.svelte     # Componente raíz
+├── .stylelintrc.json  # Configuración de linting CSS
+├── vite.config.ts     # Configuración de Vite
+└── package.json       # Dependencias y scripts
+```
+
+## 🔧 Configuración de Desarrollo
+
+### Linting CSS
+El proyecto incluye **Stylelint** configurado con:
+- Reglas estándar de CSS
+- Ordenamiento automático de propiedades por grupos lógicos
+- Soporte para archivos `.svelte`
+- Auto-fix de problemas comunes
+
+### TypeScript
+- Configuración estricta para máxima seguridad de tipos
+- Soporte completo para Svelte 5
+- Verificación de tipos en archivos `.svelte`
+
+## 🌍 Datos de Muestra
+
+La aplicación incluye marcadores predefinidos de las principales ciudades españolas:
+- Alicante, Madrid, Barcelona, Valencia, Sevilla
+- Zaragoza, Málaga, Murcia, Palma, Las Palmas
+
+## 📄 Licencia
+
+Proyecto de prueba desarrollado para explorar las capacidades de Svelte 5 y tecnologías de mapas modernas.
+
+---
+
+*Desarrollado con ❤️ usando Svelte 5, TypeScript y MapLibre GL*

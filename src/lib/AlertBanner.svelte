@@ -1,24 +1,34 @@
-
 <script lang="ts">
   import { TriangleAlert } from "@lucide/svelte";
   export let message: string;
 </script>
 
-<style>
-    .alert-banner {
-        padding: 1em;
-        text-align: center;
-    }
-
-    .icon {
-        margin-bottom: 0.25em;
-        color: rgba(255, 165, 0, 0.8);
-    }
-</style>
-
 <div class="alert-banner">
+  <div class="alert-banner-wrapper">
     <div class="icon">
-        <TriangleAlert size={48} />
+      <TriangleAlert size={48} />
     </div>
     {message}
+  </div>
 </div>
+
+<style>
+  .alert-banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .alert-banner-wrapper {
+    padding: 1em;
+    text-align: center;
+    color: #999;
+    align-self: center;
+  }
+
+  .icon {
+    margin-bottom: 0.25em;
+    color: #fbff53;
+  }
+</style>
