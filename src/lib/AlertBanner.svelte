@@ -3,8 +3,8 @@
   export let message: string;
 </script>
 
-<div class="alert-banner-wrapper">
-  <div class="alert-banner">
+<div class="alert-banner">
+  <div class="alert-banner-wrapper">
     <div class="icon">
       <TriangleAlert size={48} />
     </div>
@@ -13,13 +13,14 @@
 </div>
 
 <style>
-  .alert-banner-wrapper {
+  .alert-banner {
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100%;
   }
-  .alert-banner {
+
+  .alert-banner-wrapper {
     padding: 1em;
     text-align: center;
     color: #999;

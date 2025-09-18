@@ -1,6 +1,6 @@
 <script lang="ts">
-  import AlertBanner from "./AlertBanner.svelte";
   import type { MarkerItem } from "../types/MarkerItem";
+  import AlertBanner from "./AlertBanner.svelte";
   import MarkerCard from "./MarkerCard.svelte";
 
   let { markerList, onDeleteMarker } = $props<{
@@ -16,7 +16,15 @@
 {#if markerList.length === 0}
   <AlertBanner message="No hay elementos disponibles." />
 {:else}
-  {#each markerList as markerItem (markerItem.name)}
-    <MarkerCard {markerItem} onDeleteMarker={handleDeleteMarker} />
-  {/each}
+  <div class="marker-list">
+    {#each markerList as markerItem (markerItem.name)}
+      <MarkerCard {markerItem} onDeleteMarker={handleDeleteMarker} />
+    {/each}
+  </div>
 {/if}
+
+<style>
+  .marker-list {
+    padding: 0.66em;
+  }
+</style>

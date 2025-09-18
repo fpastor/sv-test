@@ -1,0 +1,79 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-order"],
+  "overrides": [
+    {
+      "files": ["*.svelte", "**/*.svelte"],
+      "customSyntax": "postcss-html"
+    }
+  ],
+  "rules": {
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["tailwind", "apply", "layer"]
+      }
+    ],
+    "order/properties-order": [
+      "position",
+      "top",
+      "right", 
+      "bottom",
+      "left",
+      "z-index",
+      "display",
+      "flex-direction",
+      "flex-wrap",
+      "justify-content",
+      "align-items",
+      "grid-template-areas",
+      "grid-template-columns",
+      "grid-area",
+      "width",
+      "height",
+      "max-width",
+      "max-height",
+      "min-width",
+      "min-height",
+      "margin",
+      "margin-top",
+      "margin-right",
+      "margin-bottom",
+      "margin-left",
+      "padding",
+      "padding-top",
+      "padding-right",
+      "padding-bottom",
+      "padding-left",
+      "background",
+      "background-color",
+      "background-image",
+      "border",
+      "border-top",
+      "border-right",
+      "border-bottom",
+      "border-left",
+      "border-radius",
+      "box-shadow",
+      "color",
+      "font-family",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "text-decoration",
+      "opacity",
+      "transform",
+      "transition",
+      "cursor",
+      "overflow",
+      "overflow-x",
+      "overflow-y"
+    ]
+  }
+}
